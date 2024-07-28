@@ -1,0 +1,21 @@
+### ============================================================
+### {Public Internet}
+### | 
+### [Router, DHCP, 192.168.0.0/24]--[Various Other Devices]
+### |
+### [Red:WiFi Interface: Negotiate IP address via DHCP]
+### [Red:Wired Ethernet Interface: Static IP address: 172.16.0.1/24]
+### |
+### [MaaXBoard:Wired Ethernet Interface: static IP address: 172.16.0.2/24]
+### ============================================================
+
+serverip=172.16.0.1
+ipaddr=172.16.0.2
+netmask=255.255.255.0
+image_file_name=program.img
+
+step_1=echo "Step 1: Start USB" ; start usb ; run step_2
+step_2=echo "Step 2: Load Filename (${image_file_name}) via TFTP on Server (${serverip}) into Address (${loadaddr})" ; tftpboot ${loadaddr} ${image_file_name} ; run step_3
+step_3=echo "Step 3: Execute from Address (${loadaddr})" ; go ${loadaddr}
+
+uenvcmd=run step_1
