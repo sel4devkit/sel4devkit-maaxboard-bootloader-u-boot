@@ -1,17 +1,9 @@
-### ============================================================
-### {Public Internet}
-### | 
-### [Router, DHCP, 192.168.0.0/24]--[Various Other Devices]
-### |
-### [Red:WiFi Interface: Negotiate IP address via DHCP]
-### [Red:Wired Ethernet Interface: Static IP address: 172.16.0.1/24]
-### |
-### [MaaXBoard:Wired Ethernet Interface: static IP address: 172.16.0.2/24]
-### ============================================================
+serverip=<Static IP address of TFTP Server>
 
-serverip=172.16.0.1
-ipaddr=172.16.0.2
-netmask=255.255.255.0
+# Remove ipaddr and netmask to instead defer to DHCP or BOOTP.
+ipaddr=<Static IP address of Device>
+netmask=<Subnet mask for Static IP address of Device>
+
 image_file_name=program.img
 
 step_1=echo "Step 1: Start USB" ; start usb ; run step_2
