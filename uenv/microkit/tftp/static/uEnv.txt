@@ -1,6 +1,4 @@
 serverip=<Static IP address of TFTP Server>
-
-# Remove ipaddr and netmask to instead defer to DHCP or BOOTP.
 ipaddr=<Static IP address of Device>
 netmask=<Subnet mask for Static IP address of Device>
 

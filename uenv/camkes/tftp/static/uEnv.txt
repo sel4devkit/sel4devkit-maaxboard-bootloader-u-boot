@@ -1,0 +1,11 @@
+serverip=<Static IP address of TFTP Server>
+ipaddr=<Static IP address of Device>
+netmask=<Subnet mask for Static IP address of Device>
+
+image_file_name=program.elf
+
+step_1=echo "Step 1: Start USB" ; start usb ; run step_2
+step_2=echo "Step 2: Load Filename (${image_file_name}) via TFTP on Server (${serverip}) into Address (${loadaddr})" ; tftpboot ${loadaddr} ${image_file_name} ; run step_3
+step_3=echo "Step 3: Execute from Address (${loadaddr})" ; bootelf ${loadaddr}
+
+uenvcmd=run step_1
