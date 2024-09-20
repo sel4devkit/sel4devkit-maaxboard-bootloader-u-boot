@@ -46,13 +46,14 @@ this Package.
 The Bootloader is assembled from a collection of externally managed
 dependencies, as summarised below:
 - firmware-imx: Pre-built firmware, as maintained by IMX, which is essential
-  for enabling some devices on the SoC (i.MX 8) as present on MaaXBoard.
+  for enabling some devices on the SoC as present on MaaXBoard (i.MX 8).
 This package makes use of both the DDR PHY and HDMI firmware.
 - imx-atf: Source code for the ATF (ARM Trusted Firmware), as maintained by
-  IMX, which is an essential element for booting an i.MX8.
+  IMX, which is an essential element for booting the SoC as present
+on MaaXBoard (i.MX 8).
 - uboot-imx: Fork of the U-Boot, modified by IMX for the SoC as present on
-  MaaXBoard.
+  MaaXBoard (i.MX 8).
 - imx-mkimage: Fork of the mkimage tool, modified by IMX for the SoC as
-  present on MaaXBoard, that combines various elements into a single IVT
-(Image Vector Table) image suitable for initialising the SoC and booting an
-application.
+  present on MaaXBoard (i.MX 8), that combines various elements into a single
+IVT (Image Vector Table) image suitable for initialising the SoC and booting
+an application.

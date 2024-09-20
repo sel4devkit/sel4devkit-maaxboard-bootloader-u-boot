@@ -39,14 +39,16 @@ usage:
 # Target
 #===========================================================
 .PHONY: get
-get: | ${OUT_PATH}
+get: | ${OUT_PATH}/uboot-imx
+
+${OUT_PATH}/uboot-imx: | ${OUT_PATH}
 	git -C ${OUT_PATH} clone --branch "maaxboard_v2021.04_5.10.35_2.0.0" "https://github.com/Avnet/uboot-imx.git" uboot-imx
 	git -C ${OUT_PATH}/uboot-imx reset --hard "f752480a4c29d3ff7fd4008863adc286019bf594"
-
-.PHONY: all
-all: ${OUT_PATH}/uboot-imx | ${OUT_PATH}
 	# Patch for favoured load address.
 	sed --in-place --expression "s/0x40480000/0x50000000/g" ${OUT_PATH}/uboot-imx/include/configs/maaxboard.h
+
+.PHONY: all
+all: | ${OUT_PATH}/uboot-imx ${OUT_PATH}
 	# Build for MaaXBoard.
 	make -C ${OUT_PATH}/uboot-imx maaxboard_defconfig
 	make -C ${OUT_PATH}/uboot-imx CROSS_COMPILE=aarch64-linux-gnu-

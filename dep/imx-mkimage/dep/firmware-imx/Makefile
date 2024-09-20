@@ -39,7 +39,9 @@ usage:
 # Target
 #===========================================================
 .PHONY: get
-get: | ${OUT_PATH}
+get: | ${OUT_PATH}/firmware-imx-8.22
+
+${OUT_PATH}/firmware-imx-8.22: | ${OUT_PATH}
 	curl "https://sources.buildroot.net/firmware-imx/firmware-imx-8.22.bin" --output ${OUT_PATH}/firmware-imx-8.22.bin
 	cd ${OUT_PATH} ; bash firmware-imx-8.22.bin --auto-accept
 

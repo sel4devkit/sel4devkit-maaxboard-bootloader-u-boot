@@ -44,9 +44,13 @@ usage:
 # Target
 #===========================================================
 .PHONY: get
-get: dep-get | ${OUT_PATH}
+get: dep-get | ${OUT_PATH}/imx-mkimage
+
+${OUT_PATH}/imx-mkimage: | ${OUT_PATH}
 	git -C ${OUT_PATH} clone --branch "develop_imx_4.14.78_1.0.0_ga" "git@github.com:Avnet/imx-mkimage.git" imx-mkimage
 	git -C ${OUT_PATH}/imx-mkimage reset --hard "9a299d31a2045db3eafb7ee61ec3c7ee87225d53"
+	# Patch for relative target.
+	sed --in-place --expression "s/MKIMG = .*mkimage_imx8/MKIMG = mkimage_imx8/g" ${OUT_PATH}/imx-mkimage/Makefile
 
 .PHONY: dep-get
 dep-get:
@@ -71,9 +75,7 @@ DEP_ATF_TARGET_PATH_FILES := \
     ${DEP_ATF_PATH}/out/imx-atf/build/imx8mq/release/bl31.bin \
 
 .PHONY: all
-all: dep-all ${DEP_FIR_TARGET_PATH_FILES} ${DEP_UBO_TARGET_PATH_FILES} ${DEP_ATF_TARGET_PATH_FILES} | ${OUT_PATH}
-	# Patch for relative target.
-	sed --in-place --expression "s/MKIMG = .*mkimage_imx8/MKIMG = mkimage_imx8/g" ${OUT_PATH}/imx-mkimage/Makefile
+all: dep-all ${DEP_FIR_TARGET_PATH_FILES} ${DEP_UBO_TARGET_PATH_FILES} ${DEP_ATF_TARGET_PATH_FILES} | ${OUT_PATH}/imx-mkimage ${OUT_PATH}
 	# Populate.
 	cp ${DEP_FIR_TARGET_PATH_FILES} ${DEP_UBO_TARGET_PATH_FILES} ${DEP_ATF_TARGET_PATH_FILES} ${OUT_PATH}/imx-mkimage/iMX8M
 	mv ${OUT_PATH}/imx-mkimage/iMX8M/ddr4_dmem_1d_202006.bin ${OUT_PATH}/imx-mkimage/iMX8M/ddr4_dmem_1d.bin
